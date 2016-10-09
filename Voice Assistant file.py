@@ -1,4 +1,6 @@
 import speech_recognition
+import os
+import webbrowser
 
 recognizer = speech_recognition.Recognizer()
 
@@ -9,6 +11,8 @@ class user_commands:
 
     @staticmethod
     def open_browser(browserCommand):
+        webbrowser.open("www.google.com", 1, True)
+        pass
         print browserCommand
 
 
@@ -30,7 +34,7 @@ def listen():
 
 def command(user_phrase):
     uc = user_commands()
-    if user_phrase == 'hello':
+    if user_phrase.lower() == 'open google':
         user_commands.open_browser(user_phrase)
     return user_phrase
 
