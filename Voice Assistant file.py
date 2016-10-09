@@ -5,6 +5,7 @@ import webbrowser
 recognizer = speech_recognition.Recognizer()
 
 
+# Contains the actual doing of the command given from the user.
 class user_commands:
     def __init__(self):
         pass
@@ -16,6 +17,7 @@ class user_commands:
         print browserCommand
 
 
+# Listens to user and waits for his command, passes it along
 def listen():
     with speech_recognition.Microphone() as source:
         recognizer.adjust_for_ambient_noise(source)
@@ -32,6 +34,7 @@ def listen():
     return ""
 
 
+# Checks which command it is, calling the correct user_commands method to perform the command
 def command(user_phrase):
     uc = user_commands()
     if user_phrase.lower() == 'open google':
