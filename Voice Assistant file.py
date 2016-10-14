@@ -1,6 +1,6 @@
 import speech_recognition
-import os
 import webbrowser
+import pyttsx
 
 recognizer = speech_recognition.Recognizer()
 
@@ -12,6 +12,7 @@ class user_commands:
 
     @staticmethod
     def open_browser(browserCommand):
+        speak("Opening google")
         webbrowser.open("www.google.com", 1, True)
         pass
         print browserCommand
@@ -32,6 +33,13 @@ def listen():
         print("Recognition Error; {0}".format(e))
 
     return ""
+
+
+def speak(text):
+    speech_engine = pyttsx.init('sapi5', False)
+    speech_engine.setProperty('rate', 150)
+    speech_engine.say(text)
+    speech_engine.runAndWait()
 
 
 # Checks which command it is, calling the correct user_commands method to perform the command
