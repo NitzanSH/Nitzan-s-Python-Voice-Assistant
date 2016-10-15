@@ -1,6 +1,8 @@
 import speech_recognition
 import webbrowser
 import pyttsx
+import win32api
+from threading import Thread
 
 recognizer = speech_recognition.Recognizer()
 
@@ -17,11 +19,20 @@ class user_commands:
         pass
         print browserCommand
 
+    @staticmethod
+    def play_game(browserCommand):
+        speak("Have fun playing")
+        win32api.ShellExecute(0, 'open', 'Isaac.exe', None, 'D:\Steam\steamapps\common\The Binding Of Isaac', 1)
+        pass
+        print browserCommand
+
 
 # Listens to user and waits for his command, passes it along
 def listen():
     with speech_recognition.Microphone() as source:
+        speak('Please wait a moment')
         recognizer.adjust_for_ambient_noise(source)
+        speak('Ready to listen')
         audio = recognizer.listen(source)
 
     try:
@@ -29,8 +40,10 @@ def listen():
 
     except speech_recognition.UnknownValueError:
         print("Could not understand audio")
+        speak('Sorry, I could\'nt understand you')
     except speech_recognition.RequestError as e:
         print("Recognition Error; {0}".format(e))
+        #return recognizer.recognize_sphinx(audio)
 
     return ""
 
@@ -44,9 +57,14 @@ def speak(text):
 
 # Checks which command it is, calling the correct user_commands method to perform the command
 def command(user_phrase):
-    uc = user_commands()
+    # All the threads will automatically close when the functions in 'user_commands' will return
+    thread = None
     if user_phrase.lower() == 'open google':
-        user_commands.open_browser(user_phrase)
+        thread = Thread(target=user_commands.open_browser, args=(user_phrase,))
+        thread.start()
+    if user_phrase.lower() == 'play game':
+        thread = Thread(target=user_commands.play_game, args=(user_phrase,))
+        thread.start()
     return user_phrase
 
 
