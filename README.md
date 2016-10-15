@@ -8,6 +8,7 @@ It will be built primarly with Python and I might use C# for desiging a nice GUI
 2. Improve the loading time a bit.
 3. Adding some sweet ass GUI.
 4. Improving the code (The shorter [and organized] the better).
+5. Adding offline support (using sphinx).
 
 <3
 
