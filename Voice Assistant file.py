@@ -40,7 +40,8 @@ def listen():
 
     except speech_recognition.UnknownValueError:
         print("Could not understand audio")
-        speak('Sorry, I could\'nt understand you')
+        speak('Sorry, I could not understand you.')
+        return None
     except speech_recognition.RequestError as e:
         print("Recognition Error; {0}".format(e))
         #return recognizer.recognize_sphinx(audio)
@@ -50,7 +51,7 @@ def listen():
 
 def speak(text):
     speech_engine = pyttsx.init('sapi5', False)
-    speech_engine.setProperty('rate', 150)
+    speech_engine.setProperty('rate', 170)
     speech_engine.say(text)
     speech_engine.runAndWait()
 
@@ -59,16 +60,21 @@ def speak(text):
 def command(user_phrase):
     # All the threads will automatically close when the functions in 'user_commands' will return
     thread = None
-    if user_phrase.lower() == 'open google':
+    if user_phrase is None:
+        return ""
+    elif user_phrase.lower() == 'open google':
         thread = Thread(target=user_commands.open_browser, args=(user_phrase,))
         thread.start()
-    if user_phrase.lower() == 'play game':
+    elif user_phrase.lower() == 'play game':
         thread = Thread(target=user_commands.play_game, args=(user_phrase,))
         thread.start()
+    else:
+        speak("That\'s not a command. Please check the available command list.")
     return user_phrase
 
 
 def main():
+    phrase = None
     phrase = listen()
     print phrase
     print command(phrase)
