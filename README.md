@@ -14,10 +14,10 @@ It will be built primarly with Python and I might use C# for desiging a nice GUI
 
 
 ## Needed modules:
-1) speech_recognition.
-2) webbrowser (not sure if its build in or not).
-3) pyttsx.
-4) win32api.
-5) mtranslate.
+1. speech_recognition.
+2. webbrowser (not sure if its build in or not).
+3. pyttsx.
+4. win32api.
+5. mtranslate.
 
 
